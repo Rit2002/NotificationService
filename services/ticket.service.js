@@ -25,6 +25,38 @@ const createTicket = async (data) => {
     }
 }
 
+const getAll = async () => {
+    try {
+        const response = await Ticket.find();
+        return response;
+    } catch (error) {
+        console.log(error);
+        
+        throw error;
+    }
+}
+
+const getById = async (id) => {
+    try {
+        const response = await Ticket.findById(id);
+        if(!response) {
+            throw {
+                err : 'No ticket notification found for given id',
+                code : STATUS_CODES.NOT_FOUND
+            }
+        }
+
+        return response;
+
+    } catch (error) {
+        console.log(error);
+        
+        throw error;
+    }
+}
+
 module.exports = {
-    createTicket
+    createTicket,
+    getAll,
+    getById
 }

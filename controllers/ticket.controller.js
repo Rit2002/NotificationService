@@ -25,6 +25,45 @@ const create = async (req, res) => {
     }
 }
 
+const getAllTicket = async (req, res) => {
+    try {
+        const response = await ticketService.getAll();
+
+        successResponseBody.data = response;
+        successResponseBody.message = 'Successfully fetched all the tickets';
+
+        return res.status(STATUS_CODES.OK).json(successResponseBody);
+    } catch (error) {
+        errorResponseBody.err = error;
+
+        return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(errorResponseBody);
+    }
+}
+
+const getTicket = async (req, res) => {
+    try {
+        const response = await ticketService.getById(req.params.id);
+
+        successResponseBody.data = response;
+        successResponseBody.message = 'Successfully fetched all the tickets';
+
+        return res.status(STATUS_CODES.OK).json(successResponseBody);
+
+    } catch (error) {
+
+        if(error.err) {
+            errorResponseBody.err = error.err;
+            return res.status(error.code).json(errorResponseBody);
+        }
+
+        errorResponseBody.err = error;
+
+        return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json(errorResponseBody);
+    }
+}
+
 module.exports = {
-    create
+    create,
+    getAllTicket,
+    getTicket
 }
