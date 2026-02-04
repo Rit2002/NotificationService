@@ -17,7 +17,7 @@ const verifyTicketNotificationCreateRequest = (req, res, next) => {
         !(req.body.recipientEmail instanceof Array) ||
         req.body.recipientEmail.length <= 0
     ) {
-        errorResponseBody.err = 'No subject provided';
+        errorResponseBody.err = 'No Email provided';
         return res.status(STATUS_CODES.BAD_REQUEST).json(errorResponseBody);
     }
 

@@ -21,8 +21,14 @@ app.listen(process.env.PORT, async ()=>{
     cron.mailerCron();
     
     try {
-        await mongoose.connect(process.env.DB_URL);
-        console.log(`Successfully Connected to mongoDB`);
+        if(process.env.NODE_URL == 'production') {
+            await mongoose.connect(process.env.PROD_DB_URL);
+            console.log(`Successfully Connected to mongoDB Atlas`);
+        }
+        else{
+            await mongoose.connect(process.env.DB_URL);
+            console.log(`Successfully Connected to mongoDB Compass`);
+        }
         
     } catch (error) {
         console.log(error);      
