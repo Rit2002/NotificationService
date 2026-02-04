@@ -21,7 +21,7 @@ app.listen(process.env.PORT, async ()=>{
     cron.mailerCron();
     
     try {
-        if(process.env.NODE_URL == 'production') {
+        if(process.env.NODE_ENV == 'production') {
             await mongoose.connect(process.env.PROD_DB_URL);
             console.log(`Successfully Connected to mongoDB Atlas`);
         }
